@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sohoj Biniyog — Investment Platform</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Hero Section -->
+<header class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-6 fw-bold">Invest smarter. Grow steadily.</h1>
+        <p class="lead text-muted">Sohoj Biniyog connects investors with vetted SMEs. Simple dashboards, transparent fees, and Shariah-compliant options available.</p>
+        <div class="d-flex gap-2">
+          <a href="#plans" class="btn btn-primary btn-lg">Explore Plans</a>
+          <button class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#learnModal">How it works</button>
+        </div>
+        <div class="mt-4 d-flex align-items-center gap-3">
+          <div class="trusted">
+            <small class="text-muted d-block">Trusted by</small>
+            <strong>1,250+ investors</strong>
+          </div>
+          <div class="trusted">
+            <small class="text-muted d-block">Average ROI</small>
+            <strong>8.4% / year</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center mt-4 mt-lg-0">
+        <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?w=1200&q=80&auto=format&fit=crop" alt="Invest" class="img-fluid rounded-3 shadow-sm" style="max-height:420px;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="d-flex gap-3">
+          <div class="feature-icon">
+            <i class="fa-solid fa-shield-check fa-lg text-primary"></i>
+          </div>
+          <div>
+            <h5 class="mb-1">Vetted Opportunities</h5>
+            <p class="text-muted small mb-0">Every SME goes through a strict due diligence process.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex gap-3">
+          <div class="feature-icon">
+            <i class="fa-solid fa-chart-line fa-lg text-primary"></i>
+          </div>
+          <div>
+            <h5 class="mb-1">Performance Dashboard</h5>
+            <p class="text-muted small mb-0">Track portfolio performance and cashflows in one place.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex gap-3">
+          <div class="feature-icon">
+            <i class="fa-solid fa-hand-holding-dollar fa-lg text-primary"></i>
+          </div>
+          <div>
+            <h5 class="mb-1">Shariah-Compliant Options</h5>
+            <p class="text-muted small mb-0">Invest with peace of mind through ethical options.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+      {% endblock %}

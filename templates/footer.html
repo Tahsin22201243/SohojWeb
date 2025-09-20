@@ -1,0 +1,42 @@
+<!-- Footer Component -->
+<footer class="bg-dark text-white mt-5">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5 class="fw-bold">Sohoj Biniyog</h5>
+        <p class="small text-muted">An ethical SME investment platform that connects investors with businesses to grow together.</p>
+      </div>
+      <div class="col-md-2 mb-3">
+        <h6 class="fw-bold">Quick Links</h6>
+        <ul class="list-unstyled small">
+          <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="about.html" class="text-white text-decoration-none">About</a></li>
+          <li><a href="contact.html" class="text-white text-decoration-none">Contact</a></li>
+          <li><a href="#plans" class="text-white text-decoration-none">Plans</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h6 class="fw-bold">Contact</h6>
+        <p class="small mb-1">Dhaka, Bangladesh</p>
+        <p class="small mb-1">Email: support@sohojbiniyog.example</p>
+        <p class="small">Phone: +880 1234-567890</p>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h6 class="fw-bold">Follow Us</h6>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white fs-5"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="text-white fs-5"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="text-white fs-5"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr class="border-secondary">
+    <div class="text-center small text-muted">
+      © <span id="year"></span> Sohoj Biniyog — All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
