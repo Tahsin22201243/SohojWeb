@@ -1,43 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-   {% load static %}
+  {% load static %}
   <title>Navbar — Sohoj Biniyog</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Navbar colors */
+    .navbar {
+      background-color: #0a1f44 !important;
+      /* Navy Blue */
+    }
+
+    .navbar .navbar-brand {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #fff !important;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #53d0be, #00bcd4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .navbar .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .nav-link.active {
+      color: #53d0be !important;
+      /* Aqua accent */
+    }
+
+    .navbar .btn-outline-primary {
+      border-color: #53d0be;
+      color: #53d0be;
+      font-weight: 500;
+    }
+
+    .navbar .btn-outline-primary:hover {
+      background-color: #53d0be;
+      color: #fff;
+    }
+
+    .navbar-toggler {
+      border-color: #53d0be;
+    }
+
+    .navbar-toggler-icon {
+      filter: invert(1);
+      /* make icon white */
+    }
+  </style>
 </head>
 
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="home.html">Sohoj Biniyog</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto align-items-lg-center">
-        <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
-        <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
-        <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
-        <li class="nav-item ms-3">
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
-            Login
-          </button>
-        </li>
-        <li class="nav-item ms-3">
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
-            Register
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="home.html">Sohoj Biniyog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+          <a href="{% url 'funded' %}" class="nav-item nav-link">Funded Campaign</a>
+          <a href="{% url 'invest' %}" class="nav-item nav-link">Invest</a>
+          <a href="{% url 'portfolio' %}" class="nav-item nav-link">Portfolio</a>
+          <a href="{% url 'post' %}" class="nav-item nav-link">Post</a>
+          <a href="{% url 'apply' %}" class="nav-item nav-link">Apply</a>
+          <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+          <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+          <li class="nav-item ms-3">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+              Login
+            </button>
+          </li>
+          <li class="nav-item ms-3">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+              Register
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

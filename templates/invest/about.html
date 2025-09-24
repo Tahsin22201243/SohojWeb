@@ -4,52 +4,95 @@
 {% block content %}
 
 <!-- Header -->
-<div class="container-fluid bg-primary text-white text-center py-5">
-    <h2 class="display-5">About Us</h2>
-    
+<div class="container-fluid py-5 d-flex justify-content-center align-items-center" style="background: linear-gradient(135deg, #53d0be, #2c9fa3);">
+    <div class="text-center p-4 rounded-4 shadow-lg" style="background-color: rgba(255, 255, 255, 0.1);">
+        <h2 class="display-5 fw-bold text-white">Who We Are</h2>
+    </div>
 </div>
+
 
 <!-- About Section -->
 <div class="container py-5">
+    
     <div class="row g-5 align-items-center">
         <div class="col-lg-6">
-            <img src="{% static 'img/about-2.jpg' %}" class="img-fluid rounded shadow-sm" alt="About Image">
+            <img src="{% static 'img/About.HEIC' %}" class="img-fluid rounded shadow-sm" alt="About Image">
         </div>
         <div class="col-lg-6">
-            <h4 class="text-primary">Who We Are</h4>
-            <h2 class="mb-3">Smart & Profitable Investments</h2>
-            <p>
-                We help investors grow with secure and transparent solutions.  
-                Our mission: make investing simple, safe, and accessible for everyone.
-            </p>
-            <ul class="list-unstyled">
-                <li><i class="fas fa-check-circle text-primary me-2"></i> Strategy & Consulting</li>
-                <li><i class="fas fa-check-circle text-primary me-2"></i> Business Process</li>
-                <li><i class="fas fa-check-circle text-primary me-2"></i> Marketing Rules</li>
-                <li><i class="fas fa-check-circle text-primary me-2"></i> Partnerships</li>
-            </ul>
-        </div>
+    <h2 class="mb-3">Smart & Profitable Investments</h2>
+
+    <p>
+         <strong>Sohoj Biniyog</strong>, we believe that investing should be 
+        simple, secure, and transparent. We are a modern investment platform 
+        designed to connect everyday investors with promising small and 
+        medium-sized enterprises (SMEs).
+    </p>
+
+   <h5 class="fw-bold text-primary mb-3">Our Mission is Clear:</h5>
+
+   <div class="blog-content">
+  <p>Investing can often feel complex and intimidating, but at <strong>Sohoj Biniyog</strong>, our mission is to make it simple, safe, and profitable for everyone. Here’s how we empower investors and support entrepreneurs:</p>
+
+  <p><strong>Empowering Investors:</strong> We provide opportunities that are carefully vetted to be safe, Shariah-compliant, and profitable. By prioritizing ethical investing, we ensure that our users can grow their wealth with confidence and peace of mind.</p>
+
+  <p><strong>Supporting Entrepreneurs:</strong> Small and medium-sized enterprises (SMEs) are the backbone of innovation and economic growth. We connect entrepreneurs with investors, giving them access to the funding they need to scale their businesses and achieve long-term success.</p>
+
+  <p><strong>Ensuring Transparency:</strong> Transparency is at the core of everything we do. From clear communication to risk-sharing and reliable reporting, we make sure both investors and entrepreneurs have complete clarity about their investments and business performance.</p>
+
+
+</div>
+
+</div>
+
     </div>
 </div>
 
 <!-- Team Section -->
 <div class="container py-5">
-    <div class="text-center mb-5">
-        <h4 class="text-primary">Our Team</h4>
-        <h2>Meet Our Dedicated Team</h2>
-    </div>
-    <div class="row g-4 justify-content-center">
-        {% for member in team %}
-        <div class="col-md-4 col-lg-3">
-            <div class="card border-0 shadow-sm h-100">
-                <img src="{{ member.image.url }}" class="card-img-top" alt="{{ member.name }}">
-                <div class="card-body text-center">
-                    <h5 class="card-title mb-1">{{ member.name }}</h5>
-                    <p class="text-muted small mb-0">{{ member.role }}</p>
-                </div>
-            </div>
+  <div class="text-center mb-5">
+    <h4 class="text-primary">Our Team</h4>
+    <h2>Meet Our Dedicated Team</h2>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <!-- Member 1 -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <img src="{% static 'img/Tahsin.HEIC' %}" class="card-img-top" alt="Alice Rahman">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-1">H. M. Tahsin Sheikh</h5>
+          <p class="text-muted small mb-0">CEO</p>
         </div>
-        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <img src="{% static 'img/Ramim.heic' %}" class="card-img-top" alt="Tanvir Hossain">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-1">Salman Nur Ramim</h5>
+          <p class="text-muted small mb-0">CTO</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 3 -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm h-100">
+        <img src="{% static 'img/Shimul.heic' %}" class="card-img-top" alt="Sara Ahmed">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-1">S A Shimul</h5>
+          <p class="text-muted small mb-0">Marketing Lead</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- repeat for 3 more -->
+</div>
+
     </div>
 </div>
 
