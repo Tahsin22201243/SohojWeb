@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Register - SohojWeb{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="register-container">
+  <h2>Register</h2>
+
+  <form method="post" onsubmit="return validateForm();">
+    {% csrf_token %}
+
+    <input type="text" name="full_name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <input type="password" id="confirm_password" name="reset_password" placeholder="Confirm Password" required>
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <button type="submit" class="btn-create">Create Account</button>
+    <a href="{% url 'home' %}" class="btn-back">Back</a>
+  </form>
+
+  <p class="small">
+    Already have an account? <a href="{% url 'login' %}">Log In</a>
+  </p>
+</div>
+
+<style>
+.register-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.1);
+  text-align: center;
+}
+
+.register-container h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.register-container input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.register-container button,
+.register-container .btn-back {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.register-container .btn-create {
+  background: #3ce99c;
+  color: #000;
+}
+
+.register-container .btn-back {
+  background: #b2f5e9;
+  color: #000;
+}
+
+.small {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.small a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.small a:hover {
+  text-decoration: underline;
+}
+
+/* messages */
+.messages {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.messages li {
+  padding: 5px;
+}
+</style>
+
+<script>
+function validateForm() {
+  let pass = document.getElementById("password").value;
+  let confirmPass = document.getElementById("confirm_password").value;
+  if (pass !== confirmPass) {
+    alert("Passwords do not match!");
+    return false;
+  }
+  return true;
+}
+</script>
+
+{% endblock %}

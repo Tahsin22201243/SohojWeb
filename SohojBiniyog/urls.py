@@ -27,5 +27,9 @@ urlpatterns = [
     path('portfolio/', invest_views.portfolio, name='portfolio'),
     path('apply/', invest_views.apply, name='apply'),
     path('post/', invest_views.post, name='post'),
-    path('funded/', invest_views.funded, name='funded'),
+    path('funded/', invest_views.funded, name='funded'),    
+    path('login/', invest_views.login, name='login'),
+    path('dashboard/', invest_views.dashboard, name='dashboard'),
+    path('verify/', invest_views.verify, name='verify'),
+    path('register/', invest_views.register, name='register'),
 ]
