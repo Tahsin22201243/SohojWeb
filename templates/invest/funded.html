@@ -1,11 +1,459 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Funded</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Funded Campaigns - Sohoj Biniyog{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">Successfully Funded Campaigns</h1>
+    <p class="lead text-muted">Celebrating businesses that achieved their funding goals</p>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="text-center">
+        <div class="display-4 fw-bold text-primary">127</div>
+        <p class="text-muted mb-0">Total Campaigns</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">
+        <div class="display-4 fw-bold text-success">৳45.2M</div>
+        <p class="text-muted mb-0">Total Funded</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">
+        <div class="display-4 fw-bold text-info">3,450+</div>
+        <p class="text-muted mb-0">Investors</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">
+        <div class="display-4 fw-bold text-warning">12.8%</div>
+        <p class="text-muted mb-0">Avg. ROI</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <select class="form-select">
+        <option value="">All Industries</option>
+        <option value="tech">Technology</option>
+        <option value="retail">Retail</option>
+        <option value="food">Food & Beverage</option>
+        <option value="manufacturing">Manufacturing</option>
+        <option value="agriculture">Agriculture</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select class="form-select">
+        <option value="">Sort By</option>
+        <option value="recent">Most Recent</option>
+        <option value="amount">Highest Amount</option>
+        <option value="roi">Highest ROI</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search campaigns...">
+    </div>
+  </div>
+
+  <!-- Funded Campaigns Grid -->
+  <div class="row g-4">
+    <!-- Campaign 1 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80" class="card-img-top" alt="Tech Solutions" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+            <i class="fas fa-check-circle me-1"></i>Funded
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Tech Solutions Ltd</h5>
+            <span class="badge bg-primary">Technology</span>
+          </div>
+          <p class="text-muted small mb-3">Cloud-based SaaS platform for small businesses</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Funded Amount</small>
+              <small class="fw-bold text-success">৳2,500,000</small>
+            </div>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3 py-2 bg-light rounded">
+            <div class="col-4 border-end">
+              <div class="fw-bold small">125%</div>
+              <small class="text-muted" style="font-size: 0.7rem;">of Goal</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="fw-bold small">18 mo</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Duration</small>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold small">247</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Investors</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">ROI Achieved</small>
+              <span class="fw-bold text-success">14.2%</span>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <small class="text-muted"><i class="fas fa-calendar me-1"></i>Completed: March 2024</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign 2 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" class="card-img-top" alt="Restaurant" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+            <i class="fas fa-check-circle me-1"></i>Funded
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Taste of Bengal</h5>
+            <span class="badge bg-warning">Food</span>
+          </div>
+          <p class="text-muted small mb-3">Restaurant chain expansion project</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Funded Amount</small>
+              <small class="fw-bold text-success">৳1,800,000</small>
+            </div>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3 py-2 bg-light rounded">
+            <div class="col-4 border-end">
+              <div class="fw-bold small">110%</div>
+              <small class="text-muted" style="font-size: 0.7rem;">of Goal</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="fw-bold small">12 mo</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Duration</small>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold small">182</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Investors</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">ROI Achieved</small>
+              <span class="fw-bold text-success">11.5%</span>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <small class="text-muted"><i class="fas fa-calendar me-1"></i>Completed: February 2024</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign 3 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" class="card-img-top" alt="Manufacturing" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+            <i class="fas fa-check-circle me-1"></i>Funded
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Green Manufacturing</h5>
+            <span class="badge bg-info">Manufacturing</span>
+          </div>
+          <p class="text-muted small mb-3">Eco-friendly packaging solutions</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Funded Amount</small>
+              <small class="fw-bold text-success">৳3,200,000</small>
+            </div>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3 py-2 bg-light rounded">
+            <div class="col-4 border-end">
+              <div class="fw-bold small">135%</div>
+              <small class="text-muted" style="font-size: 0.7rem;">of Goal</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="fw-bold small">24 mo</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Duration</small>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold small">315</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Investors</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">ROI Achieved</small>
+              <span class="fw-bold text-success">16.8%</span>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <small class="text-muted"><i class="fas fa-calendar me-1"></i>Completed: January 2024</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign 4 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" class="card-img-top" alt="Retail" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+            <i class="fas fa-check-circle me-1"></i>Funded
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Fashion Hub BD</h5>
+            <span class="badge bg-danger">Retail</span>
+          </div>
+          <p class="text-muted small mb-3">Online fashion retailer expansion</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Funded Amount</small>
+              <small class="fw-bold text-success">৳2,100,000</small>
+            </div>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3 py-2 bg-light rounded">
+            <div class="col-4 border-end">
+              <div class="fw-bold small">120%</div>
+              <small class="text-muted" style="font-size: 0.7rem;">of Goal</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="fw-bold small">20 mo</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Duration</small>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold small">198</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Investors</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">ROI Achieved</small>
+              <span class="fw-bold text-success">13.4%</span>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <small class="text-muted"><i class="fas fa-calendar me-1"></i>Completed: December 2023</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign 5 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1581093458791-9d42e3c62d7f?w=600&q=80" class="card-img-top" alt="Agriculture" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+            <i class="fas fa-check-circle me-1"></i>Funded
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Organic Farms Ltd</h5>
+            <span class="badge bg-success">Agriculture</span>
+          </div>
+          <p class="text-muted small mb-3">Organic farming operation expansion</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Funded Amount</small>
+              <small class="fw-bold text-success">৳1,500,000</small>
+            </div>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3 py-2 bg-light rounded">
+            <div class="col-4 border-end">
+              <div class="fw-bold small">115%</div>
+              <small class="text-muted" style="font-size: 0.7rem;">of Goal</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="fw-bold small">15 mo</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Duration</small>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold small">156</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Investors</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">ROI Achieved</small>
+              <span class="fw-bold text-success">10.2%</span>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <small class="text-muted"><i class="fas fa-calendar me-1"></i>Completed: November 2023</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign 6 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" class="card-img-top" alt="Analytics" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-3">
+            <i class="fas fa-check-circle me-1"></i>Funded
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Smart Logistics Pro</h5>
+            <span class="badge bg-primary">Technology</span>
+          </div>
+          <p class="text-muted small mb-3">Logistics management software</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Funded Amount</small>
+              <small class="fw-bold text-success">৳2,800,000</small>
+            </div>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3 py-2 bg-light rounded">
+            <div class="col-4 border-end">
+              <div class="fw-bold small">140%</div>
+              <small class="text-muted" style="font-size: 0.7rem;">of Goal</small>
+            </div>
+            <div class="col-4 border-end">
+              <div class="fw-bold small">36 mo</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Duration</small>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold small">289</div>
+              <small class="text-muted" style="font-size: 0.7rem;">Investors</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted d-block">ROI Achieved</small>
+              <span class="fw-bold text-success">18.9%</span>
+            </div>
+            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <small class="text-muted"><i class="fas fa-calendar me-1"></i>Completed: October 2023</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load More Button -->
+  <div class="text-center mt-5">
+    <button class="btn btn-outline-primary btn-lg">Load More Campaigns</button>
+  </div>
+</div>
+
+<style>
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .progress {
+    background-color: #e9ecef;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #53d0be, #2c9fa3);
+    border: none;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #2c9fa3, #53d0be);
+  }
+
+  .btn-outline-primary {
+    border-color: #53d0be;
+    color: #2c9fa3;
+    font-weight: 500;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #53d0be;
+    border-color: #53d0be;
+    color: white;
+  }
+
+  .display-4 {
+    font-size: 2.5rem;
+  }
+
+  .text-primary {
+    color: #2c9fa3 !important;
+  }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+{% endblock %}

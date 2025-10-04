@@ -1,11 +1,349 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Portfolio</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}My Portfolio - Sohoj Biniyog{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="display-6 fw-bold">My Investment Portfolio</h1>
+      <p class="text-muted">Track and manage your investments</p>
+    </div>
+    <button class="btn btn-primary">
+      <i class="fas fa-download me-2"></i>Export Report
+    </button>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div class="icon-box bg-primary bg-opacity-10 text-primary p-3 rounded">
+              <i class="fas fa-wallet fa-lg"></i>
+            </div>
+            <span class="badge bg-success">+8.2%</span>
+          </div>
+          <h3 class="fw-bold mb-1">৳5,75,000</h3>
+          <p class="text-muted small mb-0">Total Investment</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div class="icon-box bg-success bg-opacity-10 text-success p-3 rounded">
+              <i class="fas fa-chart-line fa-lg"></i>
+            </div>
+            <span class="badge bg-success">+12.4%</span>
+          </div>
+          <h3 class="fw-bold mb-1">৳6,46,300</h3>
+          <p class="text-muted small mb-0">Current Value</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div class="icon-box bg-warning bg-opacity-10 text-warning p-3 rounded">
+              <i class="fas fa-coins fa-lg"></i>
+            </div>
+            <span class="badge bg-success">Profit</span>
+          </div>
+          <h3 class="fw-bold mb-1">৳71,300</h3>
+          <p class="text-muted small mb-0">Total Returns</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div class="icon-box bg-info bg-opacity-10 text-info p-3 rounded">
+              <i class="fas fa-briefcase fa-lg"></i>
+            </div>
+          </div>
+          <h3 class="fw-bold mb-1">7</h3>
+          <p class="text-muted small mb-0">Active Investments</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Performance Chart -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-bold mb-3">Portfolio Performance</h5>
+      <div style="height: 300px; background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+        <canvas id="portfolioChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Investments Table -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-bold mb-4">Active Investments</h5>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Business</th>
+              <th>Investment Date</th>
+              <th>Amount Invested</th>
+              <th>Current Value</th>
+              <th>Return</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Tech Solutions Ltd</div>
+                    <small class="text-muted">Technology</small>
+                  </div>
+                </div>
+              </td>
+              <td>Jan 15, 2024</td>
+              <td>৳150,000</td>
+              <td>৳168,000</td>
+              <td><span class="badge bg-success">+12.0%</span></td>
+              <td><span class="badge bg-info">Active</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary">View</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Green Manufacturing Co.</div>
+                    <small class="text-muted">Manufacturing</small>
+                  </div>
+                </div>
+              </td>
+              <td>Feb 10, 2024</td>
+              <td>৳100,000</td>
+              <td>৳115,000</td>
+              <td><span class="badge bg-success">+15.0%</span></td>
+              <td><span class="badge bg-info">Active</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary">View</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Taste of Bengal</div>
+                    <small class="text-muted">Food & Beverage</small>
+                  </div>
+                </div>
+              </td>
+              <td>Mar 5, 2024</td>
+              <td>৳75,000</td>
+              <td>৳82,500</td>
+              <td><span class="badge bg-success">+10.0%</span></td>
+              <td><span class="badge bg-info">Active</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary">View</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Fashion Hub BD</div>
+                    <small class="text-muted">Retail</small>
+                  </div>
+                </div>
+              </td>
+              <td>Mar 20, 2024</td>
+              <td>৳100,000</td>
+              <td>৳108,000</td>
+              <td><span class="badge bg-success">+8.0%</span></td>
+              <td><span class="badge bg-info">Active</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary">View</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Organic Farms Ltd</div>
+                    <small class="text-muted">Agriculture</small>
+                  </div>
+                </div>
+              </td>
+              <td>Apr 1, 2024</td>
+              <td>৳50,000</td>
+              <td>৳55,500</td>
+              <td><span class="badge bg-success">+11.0%</span></td>
+              <td><span class="badge bg-info">Active</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary">View</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completed Investments -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title fw-bold mb-4">Completed Investments</h5>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Business</th>
+              <th>Investment Period</th>
+              <th>Amount Invested</th>
+              <th>Final Value</th>
+              <th>Total Return</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Digital Marketing Pro</div>
+                    <small class="text-muted">Services</small>
+                  </div>
+                </div>
+              </td>
+              <td>Jan 2023 - Dec 2023</td>
+              <td>৳50,000</td>
+              <td>৳62,300</td>
+              <td><span class="badge bg-success">+24.6%</span></td>
+              <td><span class="badge bg-success">Completed</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Business">
+                  <div>
+                    <div class="fw-bold">Coffee Corner</div>
+                    <small class="text-muted">Food & Beverage</small>
+                  </div>
+                </div>
+              </td>
+              <td>Jun 2023 - May 2024</td>
+              <td>৳50,000</td>
+              <td>ৱ55,000</td>
+              <td><span class="badge bg-success">+10.0%</span></td>
+              <td><span class="badge bg-success">Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .icon-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: rgba(83, 208, 190, 0.05);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #53d0be, #2c9fa3);
+    border: none;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #2c9fa3, #53d0be);
+  }
+
+  .btn-outline-primary {
+    border-color: #53d0be;
+    color: #2c9fa3;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #53d0be;
+    border-color: #53d0be;
+    color: white;
+  }
+</style>
+
+<!-- Chart.js for Portfolio Chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('portfolioChart');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        datasets: [{
+          label: 'Portfolio Value (৳)',
+          data: [575000, 580000, 592000, 598000, 605000, 615000, 625000, 632000, 640000, 646300],
+          borderColor: '#53d0be',
+          backgroundColor: 'rgba(83, 208, 190, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: {
+              callback: function(value) {
+                return '৳' + value.toLocaleString();
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+</script>
+
+{% endblock %}
