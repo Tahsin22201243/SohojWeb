@@ -184,7 +184,6 @@ def dashboard(request):
     updates = Update.objects.all().order_by("-created_at")[:5]
     return render(request, "invest/dashboard.html", {"updates": updates})
 
-@login_required(login_url='login')
 def funded(request):
     return render(request, "invest/funded.html")
 
