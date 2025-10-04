@@ -1,11 +1,360 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Invest</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Invest - Sohoj Biniyog{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">Investment Opportunities</h1>
+    <p class="lead text-muted">Browse and invest in vetted SME businesses</p>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <select class="form-select" id="industryFilter">
+        <option value="">All Industries</option>
+        <option value="tech">Technology</option>
+        <option value="retail">Retail</option>
+        <option value="food">Food & Beverage</option>
+        <option value="manufacturing">Manufacturing</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select class="form-select" id="riskFilter">
+        <option value="">All Risk Levels</option>
+        <option value="low">Low Risk</option>
+        <option value="medium">Medium Risk</option>
+        <option value="high">High Risk</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select class="form-select" id="returnFilter">
+        <option value="">Expected Return</option>
+        <option value="5-10">5-10%</option>
+        <option value="10-15">10-15%</option>
+        <option value="15+">15%+</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" placeholder="Search businesses..." id="searchInput">
+    </div>
+  </div>
+
+  <!-- Investment Cards -->
+  <div class="row g-4">
+    <!-- Card 1 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80" class="card-img-top" alt="Tech Startup" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-2">Low Risk</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Tech Solutions Ltd</h5>
+          <p class="text-muted small mb-2">Technology | Dhaka</p>
+          <p class="card-text">Cloud-based SaaS platform for small businesses with recurring revenue model.</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small>Funding Progress</small>
+              <small class="fw-bold">75%</small>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3">
+            <div class="col-6 border-end">
+              <div class="fw-bold">12%</div>
+              <small class="text-muted">Expected ROI</small>
+            </div>
+            <div class="col-6">
+              <div class="fw-bold">18 months</div>
+              <small class="text-muted">Duration</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Min. Investment</small>
+              <div class="fw-bold">৳50,000</div>
+            </div>
+            <a href="#" class="btn btn-primary">Invest Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" class="card-img-top" alt="Manufacturing" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-warning position-absolute top-0 end-0 m-2">Medium Risk</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Green Manufacturing Co.</h5>
+          <p class="text-muted small mb-2">Manufacturing | Chittagong</p>
+          <p class="card-text">Eco-friendly packaging solutions with growing demand in export markets.</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small>Funding Progress</small>
+              <small class="fw-bold">45%</small>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 45%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3">
+            <div class="col-6 border-end">
+              <div class="fw-bold">15%</div>
+              <small class="text-muted">Expected ROI</small>
+            </div>
+            <div class="col-6">
+              <div class="fw-bold">24 months</div>
+              <small class="text-muted">Duration</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Min. Investment</small>
+              <div class="fw-bold">৳100,000</div>
+            </div>
+            <a href="#" class="btn btn-primary">Invest Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" class="card-img-top" alt="Restaurant" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-2">Low Risk</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Taste of Bengal</h5>
+          <p class="text-muted small mb-2">Food & Beverage | Sylhet</p>
+          <p class="card-text">Restaurant chain expansion with proven track record and loyal customer base.</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small>Funding Progress</small>
+              <small class="fw-bold">90%</small>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 90%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3">
+            <div class="col-6 border-end">
+              <div class="fw-bold">10%</div>
+              <small class="text-muted">Expected ROI</small>
+            </div>
+            <div class="col-6">
+              <div class="fw-bold">12 months</div>
+              <small class="text-muted">Duration</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Min. Investment</small>
+              <div class="fw-bold">৳25,000</div>
+            </div>
+            <a href="#" class="btn btn-primary">Invest Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" class="card-img-top" alt="Retail" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-warning position-absolute top-0 end-0 m-2">Medium Risk</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Fashion Hub BD</h5>
+          <p class="text-muted small mb-2">Retail | Dhaka</p>
+          <p class="card-text">Online fashion retailer expanding to physical stores in major cities.</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small>Funding Progress</small>
+              <small class="fw-bold">60%</small>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-info" role="progressbar" style="width: 60%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3">
+            <div class="col-6 border-end">
+              <div class="fw-bold">14%</div>
+              <small class="text-muted">Expected ROI</small>
+            </div>
+            <div class="col-6">
+              <div class="fw-bold">20 months</div>
+              <small class="text-muted">Duration</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Min. Investment</small>
+              <div class="fw-bold">৳75,000</div>
+            </div>
+            <a href="#" class="btn btn-primary">Invest Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1581093458791-9d42e3c62d7f?w=600&q=80" class="card-img-top" alt="Agriculture" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-success position-absolute top-0 end-0 m-2">Low Risk</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Organic Farms Ltd</h5>
+          <p class="text-muted small mb-2">Agriculture | Rajshahi</p>
+          <p class="card-text">Organic farming operation supplying to premium supermarket chains.</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small>Funding Progress</small>
+              <small class="fw-bold">80%</small>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 80%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3">
+            <div class="col-6 border-end">
+              <div class="fw-bold">11%</div>
+              <small class="text-muted">Expected ROI</small>
+            </div>
+            <div class="col-6">
+              <div class="fw-bold">15 months</div>
+              <small class="text-muted">Duration</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Min. Investment</small>
+              <div class="fw-bold">৳40,000</div>
+            </div>
+            <a href="#" class="btn btn-primary">Invest Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" class="card-img-top" alt="Analytics" style="height: 200px; object-fit: cover;">
+          <span class="badge bg-danger position-absolute top-0 end-0 m-2">High Risk</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">DataFlow Analytics</h5>
+          <p class="text-muted small mb-2">Technology | Dhaka</p>
+          <p class="card-text">AI-powered business analytics startup targeting enterprise clients.</p>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small>Funding Progress</small>
+              <small class="fw-bold">30%</small>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 30%"></div>
+            </div>
+          </div>
+
+          <div class="row text-center mb-3">
+            <div class="col-6 border-end">
+              <div class="fw-bold">20%</div>
+              <small class="text-muted">Expected ROI</small>
+            </div>
+            <div class="col-6">
+              <div class="fw-bold">36 months</div>
+              <small class="text-muted">Duration</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Min. Investment</small>
+              <div class="fw-bold">৳150,000</div>
+            </div>
+            <a href="#" class="btn btn-primary">Invest Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load More Button -->
+  <div class="text-center mt-5">
+    <button class="btn btn-outline-primary btn-lg">Load More Opportunities</button>
+  </div>
+</div>
+
+<style>
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .progress {
+    background-color: #e9ecef;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #53d0be, #2c9fa3);
+    border: none;
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #2c9fa3, #53d0be);
+  }
+
+  .btn-outline-primary {
+    border-color: #53d0be;
+    color: #2c9fa3;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #53d0be;
+    border-color: #53d0be;
+    color: white;
+  }
+</style>
+
+{% endblock %}

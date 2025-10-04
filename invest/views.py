@@ -19,6 +19,16 @@ def about(request):
 
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        
+        # For now, just show a success message
+        # In production, you would send an actual email here
+        messages.success(request, "Thank you for contacting us! We will get back to you soon.")
+        return redirect('contact')
+    
     return render(request, 'invest/contact.html')
 
 

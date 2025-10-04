@@ -1,11 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Apply</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Apply for Funding - Sohoj Biniyog{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">Apply for Funding</h1>
+    <p class="lead text-muted">Connect with investors to grow your business</p>
+  </div>
+
+  <!-- Application Form -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Business Information -->
+            <h5 class="fw-bold mb-3 text-primary">
+              <i class="fas fa-building me-2"></i>Business Information
+            </h5>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Business Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="business_name" required placeholder="Enter business name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Trade License Number</label>
+                <input type="text" class="form-control" name="license_number" placeholder="Trade license number">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Industry <span class="text-danger">*</span></label>
+                <select class="form-select" name="industry" required>
+                  <option value="">Select industry</option>
+                  <option value="technology">Technology</option>
+                  <option value="manufacturing">Manufacturing</option>
+                  <option value="retail">Retail</option>
+                  <option value="food_beverage">Food & Beverage</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="services">Services</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Year Established <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="year_established" required placeholder="e.g., 2020" min="1900" max="2024">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Business Address <span class="text-danger">*</span></label>
+              <textarea class="form-control" name="business_address" rows="2" required placeholder="Full business address"></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Business Description <span class="text-danger">*</span></label>
+              <textarea class="form-control" name="business_description" rows="4" required placeholder="Describe your business, products/services, and market"></textarea>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Contact Information -->
+            <h5 class="fw-bold mb-3 text-primary">
+              <i class="fas fa-user me-2"></i>Contact Information
+            </h5>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="contact_name" required placeholder="Your full name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Position <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="position" required placeholder="e.g., CEO, Owner">
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label class="form-label">Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" name="email" required placeholder="your@email.com">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+                <input type="tel" class="form-control" name="phone" required placeholder="+880 1XXX-XXXXXX">
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Funding Details -->
+            <h5 class="fw-bold mb-3 text-primary">
+              <i class="fas fa-money-bill-wave me-2"></i>Funding Details
+            </h5>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Funding Required (৳) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="funding_amount" required placeholder="Amount in BDT" min="10000">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Funding Duration (months) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="funding_duration" required placeholder="e.g., 12" min="6" max="60">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Expected ROI (%) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="expected_roi" required placeholder="e.g., 15" min="5" max="100" step="0.1">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Current Revenue (৳/month)</label>
+                <input type="number" class="form-control" name="current_revenue" placeholder="Monthly revenue" min="0">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Purpose of Funding <span class="text-danger">*</span></label>
+              <textarea class="form-control" name="funding_purpose" rows="4" required placeholder="Explain how you will use the funds and expected outcomes"></textarea>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Documents -->
+            <h5 class="fw-bold mb-3 text-primary">
+              <i class="fas fa-file-alt me-2"></i>Supporting Documents
+            </h5>
+
+            <div class="mb-3">
+              <label class="form-label">Business Plan <span class="text-danger">*</span></label>
+              <input type="file" class="form-control" name="business_plan" required accept=".pdf,.doc,.docx">
+              <small class="text-muted">Upload your business plan (PDF, DOC, DOCX)</small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Financial Statements</label>
+              <input type="file" class="form-control" name="financial_statements" accept=".pdf,.xlsx,.xls">
+              <small class="text-muted">Last 2 years financial statements (optional)</small>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Trade License Copy</label>
+              <input type="file" class="form-control" name="trade_license" accept=".pdf,.jpg,.jpeg,.png">
+              <small class="text-muted">Scanned copy of trade license (optional)</small>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Terms & Conditions -->
+            <div class="mb-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terms" required>
+                <label class="form-check-label" for="terms">
+                  I agree to the <a href="#" class="text-primary">Terms & Conditions</a> and confirm that all information provided is accurate <span class="text-danger">*</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-paper-plane me-2"></i>Submit Application
+              </button>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="card border-0 bg-light mt-4">
+        <div class="card-body">
+          <h6 class="fw-bold mb-2">
+            <i class="fas fa-info-circle me-2 text-primary"></i>Application Process
+          </h6>
+          <ol class="mb-0 small">
+            <li>Submit your application with all required documents</li>
+            <li>Our team will review within 3-5 business days</li>
+            <li>If approved, your business will be listed on our platform</li>
+            <li>Connect with interested investors and close deals</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card {
+    border-radius: 12px;
+  }
+
+  .form-control, .form-select {
+    border-radius: 8px;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .form-control:focus, .form-select:focus {
+    border-color: #53d0be;
+    box-shadow: 0 0 0 0.2rem rgba(83, 208, 190, 0.25);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #53d0be, #2c9fa3);
+    border: none;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #2c9fa3, #53d0be);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(83, 208, 190, 0.3);
+  }
+
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  hr {
+    opacity: 0.1;
+  }
+
+  .text-primary {
+    color: #2c9fa3 !important;
+  }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+{% endblock %}
