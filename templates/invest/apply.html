@@ -1,11 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Apply</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Apply for Investment{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:650px;">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="mb-4 fw-bold text-center">Apply for Investment</h2>
+            <p class="lead text-center text-muted mb-4">
+                Submit your business details to request investment. Please provide accurate information for faster approval.
+            </p>
+            {% if success %}
+                <div class="alert alert-success text-center">
+                    Your application has been submitted successfully! We will review and contact you soon.
+                </div>
+            {% elif already_applied %}
+                <div class="alert alert-info text-center">
+                    You have already submitted an application. Please wait for approval or contact support for updates.
+                </div>
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_name" class="form-label">Business Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Business Description</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_location" class="form-label">Location</label>
+                        {{ form.location }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_website" class="form-label">Website (optional)</label>
+                        {{ form.website }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_documents" class="form-label">Upload Business Documents (PDF, JPG, PNG)</label>
+                        <input type="file" class="form-control" id="id_documents" name="documents" multiple>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="id_terms" required>
+                        <label class="form-check-label" for="id_terms">
+                            I confirm that the information provided is accurate and I agree to the terms and conditions.
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 mt-2">Submit Application</button>
+                </form>
+            {% endif %}
+            <hr>
+            <div class="text-center">
+                <small class="text-muted">Need help? <a href="{% url 'contact' %}">Contact support</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

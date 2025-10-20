@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Payment Cancelled{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="alert alert-warning">Payment cancelled.</div>
+  <a class="btn btn-outline-primary" href="{% url 'campaign_detail' payment.investment.campaign.id %}">Back to Campaign</a>
+</div>
+{% endblock %}

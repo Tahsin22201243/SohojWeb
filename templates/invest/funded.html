@@ -1,11 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Funded</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Funded Campaigns{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 fw-bold text-center">Funded Campaigns</h2>
+    <p class="lead text-center text-muted mb-5">
+        Explore campaigns that have successfully reached their funding goals.
+    </p>
+    <div class="row g-4">
+        {% if campaigns %}
+            {% for campaign in campaigns %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow border-success border-2 {% if campaign.is_funded %}funded-card{% endif %}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-success">{{ campaign.title }} ></h5>
+                        {% if campaign.is_funded %}
+                            <div class="funded-ribbon">Funded</div>
+                        {% endif %}
+                        <p class="card-text text-muted mb-2">{{ campaign.business.name }}</p>
+                        <p class="card-text small mb-3">{{ campaign.description|truncatewords:20 }}</p>
+                        <ul class="list-unstyled mb-3">
+                            <li><strong>Target:</strong> 	f3{{ campaign.target_amount }}</li>
+                            <li><strong>Funded:</strong> <span class="text-success">Yes</span></li>
+                            <li><strong>Ended:</strong> {{ campaign.end_date }}</li>
+                        </ul>
+                        <div class="mt-auto">
+                            <a href="{% url 'campaign_detail' campaign.id %}" class="btn btn-outline-success w-100">
+                                View Campaign
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    No funded campaigns yet. Check back soon!
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

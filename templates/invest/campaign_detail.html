@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load role_extras %}
+{% block title %}Campaign Details{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4 campaign-card {% if campaign.is_funded %}funded-card{% endif %}">
+                {% if campaign.cover_image %}
+                    <img src="{{ campaign.cover_image.url }}" alt="{{ campaign.title }} cover" class="card-img-top" loading="lazy">
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h2 class="fw-bold mb-2">{{ campaign.title }}</h2>
+                            <p class="text-muted mb-1"><strong>Business:</strong> {{ campaign.business.name }}</p>
+                        </div>
+                        <div>
+                            <span class="badge risk-badge risk-{{ campaign.risk_grade|lower }}">{{ campaign.get_risk_grade_display }}</span>
+                            {% if campaign.is_funded %}
+                                <div class="mt-2">
+                                    <span class="badge funded">Funded</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {% if campaign.cover_image %}
+                            <img src="{{ campaign.cover_image.url }}" alt="{{ campaign.title }} cover" class="img-fluid rounded mb-2" loading="lazy" style="max-height:220px; object-fit:cover; width:100%">
+                        {% endif %}
+                        <div class="progress" style="height:12px; border-radius:999px; overflow:hidden">
+                            <div class="progress-bar animated-progress" role="progressbar" data-target="{{ campaign.percent_raised }}" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex justify-content-between small text-muted mt-2">
+                            <div><strong>{{ campaign.percent_raised|floatformat:1 }}%</strong> raised (৳{{ campaign.raised_amount }})</div>
+                            <div>{{ campaign.days_left }} days left</div>
+                        </div>
+                    </div>
+                    <p class="mb-3">{{ campaign.description }}</p>
+                    <ul class="list-unstyled mb-3">
+                        <li><strong>Target Amount:</strong> ৳{{ campaign.target_amount }}</li>
+                        <li><strong>Minimum Investment:</strong> ৳{{ campaign.min_investment }}</li>
+                        <li><strong>Start Date:</strong> {{ campaign.start_date }}</li>
+                        <li><strong>End Date:</strong> {{ campaign.end_date }}</li>
+                        <li><strong>Status:</strong>
+                            {% if campaign.is_funded %}
+                                <span class="text-success">Funded</span>
+                            {% else %}
+                                <span class="text-warning">Open</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% if request.user.is_authenticated %}
+                        {% if campaign.is_funded %}
+                            <a class="btn btn-outline-secondary w-100 mb-2 disabled" aria-disabled="true">Fully Funded</a>
+                        {% else %}
+                            {% if user_is_business %}
+                                <a class="btn btn-outline-secondary w-100 mb-2 disabled" aria-disabled="true">Business owners cannot invest</a>
+                            {% else %}
+                                <a href="{% url 'invest_in_campaign' campaign.id %}" class="btn btn-primary w-100 mb-2">Invest in this Campaign</a>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% if campaign.is_funded %}
+                            <a class="btn btn-outline-secondary w-100 mb-2 disabled" aria-disabled="true">Fully Funded</a>
+                        {% else %}
+                            <a href="{% url 'register' %}" class="btn btn-outline-primary w-100 mb-2">Login or Register to Invest</a>
+                        {% endif %}
+                    {% endif %}
+                      </div>
+                </div>
+            </div>
+            {% if is_owner %}
+            <div class="card shadow-sm border-0 mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="fw-bold">Investors</h4>
+                        <a href="?export=investors_csv" class="btn btn-sm btn-outline-secondary">Export Investors CSV</a>
+                    </div>
+                    {% if owner_investments and owner_investments.count %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Investor</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for inv in owner_investments %}
+                                    <tr>
+                                        <td>{{ inv.investor.username }} &lt;{{ inv.investor.email }}&gt;</td>
+                                        <td>{{ inv.amount }}</td>
+                                        <td>{{ inv.status }}</td>
+                                        <td>{{ inv.invested_at }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p><strong>Total raised for this campaign:</strong> {{ owner_totals.total|default:0 }}</p>
+                    {% else %}
+                        <div class="alert alert-info">No investments yet for this campaign.</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="fw-bold mb-3">Campaign Updates</h4>
+                                        {% if updates %}
+                                                {% for update in updates %}
+                                                        {% if update.is_approved or request.user == campaign.business.owner or request.user.is_staff %}
+                                                        <div class="mb-4 border-bottom pb-2">
+                                                                <h6 class="mb-1">{{ update.title }}</h6>
+                                                                <small class="text-muted">{{ update.created_at|date:"M d, Y H:i" }}{% if update.updated_at and update.updated_at != update.created_at %} (edited {{ update.updated_at|date:"M d, Y H:i" }}){% endif %}</small>
+                                                                <div class="mt-2">{{ update.content|safe }}</div>
+                                                                {% if update.attachments.all %}
+                                                                    <div class="mt-2">
+                                                                        <strong>Attachments:</strong>
+                                                                        <ul>
+                                                                            {% for a in update.attachments.all %}
+                                                                                <li><a href="{{ a.file.url }}" target="_blank">{{ a.file.name|basename }}</a></li>
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if request.user == campaign.business.owner %}
+                                                                    <div class="mt-2 d-flex gap-2">
+                                                                        <a href="{% url 'edit_update' update.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                                                        <form method="post" action="{% url 'delete_update' update.id %}">{% csrf_token %}<button class="btn btn-sm btn-danger" type="submit">Delete</button></form>
+                                                                    </div>
+                                                                {% endif %}
+                                                        </div>
+                                                        {% endif %}
+                                                {% endfor %}
+                                        {% else %}
+                        <div class="alert alert-info text-center">
+                            No updates posted yet.
+                        </div>
+                    {% endif %}
+                    {% if request.user == campaign.business.owner %}
+                        <a href="{% url 'post_update' campaign.id %}" class="btn btn-success w-100 mt-3">
+                            Post an Update
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

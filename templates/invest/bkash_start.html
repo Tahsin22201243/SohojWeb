@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}bKash Payment{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body text-center">
+          <h4>Proceed to bKash (simulated)</h4>
+          <p>Payment ID: {{ payment.id }} — Amount: {{ payment.amount }} {{ payment.currency }}</p>
+          <div class="d-flex gap-2 justify-content-center">
+            <a href="{% url 'bkash_success' payment.id %}" class="btn btn-success">Simulate success</a>
+            <a href="{% url 'bkash_cancel' payment.id %}" class="btn btn-danger">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

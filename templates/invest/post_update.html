@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load role_extras %}
+
+{% block title %}Post Update{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="mb-3">Post an Update for: {{ campaign.title }}</h3>
+          {% if last_update %}
+            <div class="alert alert-info">
+              <h6>Most recent update</h6>
+              <strong>{{ last_update.title }}</strong>
+              <div class="small text-muted">{{ last_update.created_at|date:"M d, Y H:i" }}</div>
+              <div class="mt-2">{{ last_update.content|safe }}</div>
+            </div>
+          {% endif %}
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form %}
+              <div class="mb-3">{{ form.title.label_tag }} {{ form.title }}</div>
+              <div class="mb-3">{{ form.content.label_tag }} {{ form.content }}</div>
+              <div class="mb-3">
+                <label class="form-label">Add attachments</label>
+                <input type="file" name="attachments" class="form-control" multiple />
+              </div>
+              {% if editing and update and update.attachments.all %}
+                <div class="mb-3">
+                  <label class="form-label">Existing attachments (check to remove)</label>
+                  <ul class="list-unstyled">
+                    {% for a in update.attachments.all %}
+                      <li>
+                        <input type="checkbox" name="remove_attachments" value="{{ a.id }}" id="rem{{ a.id }}" />
+                        <label for="rem{{ a.id }}"><a href="{{ a.file.url }}" target="_blank">{{ a.file.name|basename }}</a></label>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            {% else %}
+              <!-- fallback simple inputs -->
+              <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Content</label>
+                <textarea name="content" class="form-control" rows="6" required></textarea>
+              </div>
+            {% endif %}
+            <div class="d-flex gap-2">
+              <button class="btn btn-success" type="submit">{% if editing %}Save Changes{% else %}Post Update{% endif %}</button>
+              <a href="{% url 'campaign_detail' campaign.id %}" class="btn btn-outline-secondary" data-clear-draft="true">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    (function(){
+      const draftKey = "{% if editing and update %}update_draft_{{ update.id }}{% else %}campaign_{{ campaign.id }}_update_draft{% endif %}";
+      const formEl = document.querySelector('form');
+      const titleField = document.getElementById('{% if form %}{{ form.title.id_for_label }}{% else %}title{% endif %}');
+      const contentFieldId = '{% if form %}{{ form.content.id_for_label }}{% else %}content{% endif %}';
+
+      function readDraft(){
+        try {
+          const raw = localStorage.getItem(draftKey);
+          return raw ? JSON.parse(raw) : null;
+        } catch(err){
+          console.warn('Could not parse update draft', err);
+          localStorage.removeItem(draftKey);
+          return null;
+        }
+      }
+
+      function writeDraft(customContent){
+        if(!titleField){ return; }
+        const editor = window.tinymce ? tinymce.get(contentFieldId) : null;
+        const payload = {
+          title: titleField.value || '',
+          content: typeof customContent === 'string' ? customContent : (editor ? editor.getContent({format: 'html'}) : (document.getElementById(contentFieldId)?.value || '')),
+          savedAt: Date.now()
+        };
+        try {
+          localStorage.setItem(draftKey, JSON.stringify(payload));
+        } catch(err) {
+          console.warn('Unable to persist draft', err);
+        }
+      }
+
+      function hydrateFromDraft(){
+        const draft = readDraft();
+        if(!draft){ return null; }
+        if(titleField && draft.title){
+          titleField.value = draft.title;
+        }
+        const textarea = document.getElementById(contentFieldId);
+        if(textarea && draft.content && !window.tinymce){
+          textarea.value = draft.content;
+        }
+        return draft;
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        hydrateFromDraft();
+        if(titleField){
+          titleField.addEventListener('input', function(){ writeDraft(); });
+        }
+        if(formEl){
+          formEl.addEventListener('submit', function(){
+            localStorage.removeItem(draftKey);
+          });
+        }
+        document.querySelectorAll('[data-clear-draft="true"]').forEach(function(el){
+          el.addEventListener('click', function(){
+            localStorage.removeItem(draftKey);
+          });
+        });
+      });
+
+      window.__saveUpdateDraft = writeDraft;
+      window.__hydrateUpdateDraft = hydrateFromDraft;
+    })();
+
+    tinymce.init({
+      selector: '.rich-text',
+      menubar: false,
+      plugins: 'link image media lists table code',
+      toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image media | code',
+      height: 300,
+      setup: function(editor){
+        editor.on('init', function(){
+          const draft = (window.__hydrateUpdateDraft && window.__hydrateUpdateDraft()) || null;
+          if(!draft){
+            // ensure TinyMCE syncs existing textarea value without overriding stored draft
+            const underlying = document.getElementById(editor.id);
+            if(underlying){
+              editor.setContent(underlying.value || '');
+            }
+          } else if(draft && draft.content){
+            editor.setContent(draft.content);
+          }
+        });
+        editor.on('change input keyup', function(){
+          window.__saveUpdateDraft && window.__saveUpdateDraft(editor.getContent({format:'html'}));
+        });
+      }
+    });
+  </script>
+{% endblock %}

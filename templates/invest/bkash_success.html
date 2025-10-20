@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Payment Success{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="alert alert-success">Payment {{ payment.transaction_id|default:payment.id }} succeeded. Status: {{ payment.status }}</div>
+  <a class="btn btn-primary" href="{% url 'portfolio' %}">Go to portfolio</a>
+</div>
+{% endblock %}

@@ -1,11 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Invest</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Invest Opportunities{% endblock %}
+
+{% block content %}
+<style>
+    .invest-title {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        color: #0a1f44;
+        margin-bottom: 2rem; /* Increased spacing below the title */
+    }
+
+    .invest-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 1.5rem; /* Added consistent spacing between cards */
+    }
+
+    .invest-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .invest-card .card-title {
+        font-size: 1.2rem;
+        color: #0a1f44;
+        margin-bottom: 0.5rem; /* Added spacing below card titles */
+    }
+
+    .invest-card .card-text {
+        color: #555;
+        margin-bottom: 1rem; /* Added spacing below card text */
+    }
+
+    .btn-invest {
+        background: linear-gradient(90deg, #53d0be, #00bcd4);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 10px;
+        padding: 10px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-invest:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+    }
+
+    .progress {
+        margin-top: 0.5rem; /* Adjusted spacing above progress bars */
+    }
+</style>
+<div class="container py-5">
+    <h2 class="mb-4 fw-bold text-center invest-title">Investment Opportunities</h2>
+    <p class="lead text-center text-muted mb-5">
+        Browse and invest in vetted SME campaigns. Support businesses and grow your portfolio.
+    </p>
+    <div class="row g-4">
+        {% if campaigns %}
+        {% for campaign in campaigns %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card invest-card h-100 border-0 card-hoverable fade-up campaign-card {% if campaign.is_funded %}funded-card{% endif %}">
+                {% if campaign.cover_image %}
+                <img src="{{ campaign.cover_image.url }}" class="card-img-top" alt="{{ campaign.title }} cover" loading="lazy" style="height:160px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="card-title fw-bold mb-0">{{ campaign.title }}</h5>
+                            <small class="text-muted">{{ campaign.business.name }}</small>
+                        </div>
+                        <div>
+                            <span class="badge risk-badge risk-{{ campaign.risk_grade|lower }}">{{ campaign.get_risk_grade_display }}</span>
+                            {% if campaign.is_funded %}
+                                <span class="badge funded ms-2">Funded</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if campaign.is_funded %}
+                        <div class="funded-ribbon">Funded</div>
+                    {% endif %}
+                    <p class="card-text small mb-3">{{ campaign.description|truncatewords:18 }}</p>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <div>Target: ৳{{ campaign.target_amount }}</div>
+                            <div>Min: ৳{{ campaign.min_investment }}</div>
+                        </div>
+                        <div class="progress mt-2" style="height:10px; border-radius:999px; overflow:hidden; background:rgba(0,0,0,0.04)">
+                            <div class="progress-bar animated-progress" role="progressbar" data-target="{{ campaign.percent_raised }}" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex justify-content-between small mt-2 text-muted">
+                            <div><strong>{{ campaign.percent_raised|floatformat:1 }}%</strong> raised</div>
+                            <div>{{ campaign.days_left }} days left</div>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        {% if campaign.is_funded %}
+                            <a href="{% url 'campaign_detail' campaign.id %}" class="btn btn-outline-secondary w-100">View Details</a>
+                        {% else %}
+                            <a href="{% url 'campaign_detail' campaign.id %}" class="btn btn-brand w-100">View Details & Invest</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                No investment campaigns available at the moment. Please check back later.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

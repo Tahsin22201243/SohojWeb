@@ -1,11 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>POST</h1>
+    {% extends 'base.html' %}
+    {% block title %}Post a Campaign{% endblock %}
+    {% block content %}
+    <div class="container py-5" style="max-width:650px;">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h2 class="mb-4 fw-bold text-center">Post a New Investment Campaign</h2>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show text-center mt-3" role="alert">
+                            <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if businesses %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                          <div class="alert alert-danger">Please fix the errors below.</div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="business" class="form-label">Select Your Approved Business</label>
+                            <select name="business" id="business" class="form-select" required>
+                                {% for business in businesses %}
+                                    {% if business.is_approved %}
+                                        <option value="{{ business.id }}">{{ business.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.title.label_tag }}
+                            {{ form.title }}
+                            {% if form.title.errors %}<div class="text-danger small">{{ form.title.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.description.label_tag }}
+                            {{ form.description }}
+                            {% if form.description.errors %}<div class="text-danger small">{{ form.description.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="row g-2">
+                          <div class="col-md-6 mb-3">{{ form.target_amount.label_tag }} {{ form.target_amount }} {% if form.target_amount.errors %}<div class="text-danger small">{{ form.target_amount.errors }}</div>{% endif %}</div>
+                          <div class="col-md-6 mb-3">{{ form.min_investment.label_tag }} {{ form.min_investment }} {% if form.min_investment.errors %}<div class="text-danger small">{{ form.min_investment.errors }}</div>{% endif %}</div>
+                        </div>
+
+                        <div class="row g-2">
+                          <div class="col-md-6 mb-3">{{ form.start_date.label_tag }} {{ form.start_date }}</div>
+                          <div class="col-md-6 mb-3">{{ form.end_date.label_tag }} {{ form.end_date }}</div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.cover_image.label_tag }}
+                            {{ form.cover_image }}
+                            <div class="mt-2">
+                                <img id="coverPreview" src="" alt="Cover preview" style="max-width:100%; max-height:220px; display:none; object-fit:cover; border-radius:8px;" />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-2">Post Campaign</button>
+                    </form>
+                {% else %}
+                    <div class="alert alert-info text-center">
+                        You do not have any approved business applications.<br>
+                        <a href="{% url 'apply' %}" class="btn btn-success mt-2">Apply for Business Approval</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 </body>
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const fileInput = document.querySelector('input[type=file][name="cover_image"]');
+    const preview = document.getElementById('coverPreview');
+    if(!fileInput) return;
+    fileInput.addEventListener('change', function(e){
+        const f = this.files && this.files[0];
+        if(!f) { preview.style.display='none'; preview.src=''; return; }
+        const url = URL.createObjectURL(f);
+        preview.src = url;
+        preview.style.display = 'block';
+    });
+});
+</script>

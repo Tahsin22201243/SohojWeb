@@ -1,126 +1,295 @@
 {% extends 'base.html' %}
-{% block title %}Register - SohojWeb{% endblock %}
-{% load static %}
+{% block body_class %}minimal{% endblock %}
+{% load socialaccount %}
+{% block title %}Register — Sohoj Biniyog{% endblock %}
 {% block content %}
-
-<div class="register-container">
-  <h2>Register</h2>
-
-  <form method="post" onsubmit="return validateForm();">
-    {% csrf_token %}
-
-    <input type="text" name="full_name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" id="password" name="password" placeholder="Password" required>
-    <input type="password" id="confirm_password" name="reset_password" placeholder="Confirm Password" required>
-
-    {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    <button type="submit" class="btn-create">Create Account</button>
-    <a href="{% url 'home' %}" class="btn-back">Back</a>
-  </form>
-
-  <p class="small">
-    Already have an account? <a href="{% url 'login' %}">Log In</a>
-  </p>
-</div>
-
 <style>
-.register-container {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,.1);
-  text-align: center;
-}
+    body {
+        background: linear-gradient(135deg, #0a1f44, #1c3b70);
+        font-family: 'Poppins', sans-serif;
+    }
 
-.register-container h2 {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-}
+    .register-wrapper {
+        min-height: calc(100vh - 140px);
+        padding: 60px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.register-container input {
-  display: block;
-  width: 100%;
-  padding: 10px 12px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
+    @media (max-width: 576px) {
+        .register-wrapper {
+            min-height: calc(100vh - 100px);
+            padding: 40px 15px;
+        }
+    }
 
-.register-container button,
-.register-container .btn-back {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  box-sizing: border-box;
-}
+    .register-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 24px 40px 28px;
+        max-width: 580px;
+        margin: auto;
+        animation: fadeInUp 0.8s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-.register-container .btn-create {
-  background: #3ce99c;
-  color: #000;
-}
+    .register-card h2 {
+        font-weight: 700;
+        color: #0a1f44;
+        margin-bottom: 0.5rem;
+        /* reduce vertical space */
+    }
 
-.register-container .btn-back {
-  background: #b2f5e9;
-  color: #000;
-}
+    .register-card .form-control {
+        border-radius: 10px;
+        padding: 10px;
+        /* slightly smaller input height */
+        transition: all 0.3s ease;
+        border: 1px solid #ddd;
+        margin-bottom: 0.6rem;
+        /* reduce spacing between inputs */
+    }
 
-.small {
-  margin-top: 15px;
-  font-size: 0.9rem;
-}
+    .btn-custom {
+        background: linear-gradient(90deg, #53d0be, #00bcd4);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 10px;
+        padding: 9px;
+        transition: transform 0.2s ease;
+        margin-top: 0.4rem;
+        /* reduce top spacing */
+    }
 
-.small a {
-  color: #2563eb;
-  text-decoration: none;
-}
+    .role-selector {
+        display: flex;
+        justify-content: flex-end;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
 
-.small a:hover {
-  text-decoration: underline;
-}
+    .btn-role {
+        background: #f4f7fb;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 12px 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #0a1f44;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
 
-/* messages */
-.messages {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
-  font-size: 0.9rem;
-}
+    .role-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 188, 212, 0.12);
+        color: #00a0b8;
+    }
 
-.messages li {
-  padding: 5px;
-}
+    .role-icon-business {
+        background: rgba(83, 208, 190, 0.15);
+        color: #2b9b86;
+    }
+
+    .btn-role:hover {
+        border-color: #00bcd4;
+        box-shadow: 0 6px 16px rgba(0, 188, 212, 0.2);
+    }
+
+    .btn-check:checked + .btn-role {
+        background: linear-gradient(90deg, rgba(83, 208, 190, 0.18), rgba(0, 188, 212, 0.18));
+        border-color: #00bcd4;
+        color: #007b92;
+    }
+
+    .btn-check:focus + .btn-role {
+        box-shadow: 0 0 0 0.2rem rgba(0, 188, 212, 0.25);
+    }
+
+
+    .btn-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+    }
+
+     .social-btn {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 8px;
+        /* slightly smaller height */
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-bottom: 0.6rem;
+        /* reduce spacing between social buttons */
+    }
+
+    .social-btn:hover {
+        background-color: #f9f9f9;
+        transform: translateY(-2px);
+    }
+
+    .social-btn img {
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 
-<script>
-function validateForm() {
-  let pass = document.getElementById("password").value;
-  let confirmPass = document.getElementById("confirm_password").value;
-  if (pass !== confirmPass) {
-    alert("Passwords do not match!");
-    return false;
-  }
-  return true;
-}
-</script>
+<div class="register-wrapper">
+    <div class="register-card">
+        <h2 class="text-center">Create Account</h2>
+        <p class="text-center text-muted mb-4">Join Sohoj Biniyog today and start investing smarter.</p>
 
+        <form method="post" id="registerForm">
+            {% csrf_token %}
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            <div class="d-flex justify-content-end mb-4">
+                <div class="role-selector">
+                    <input class="btn-check" type="radio" name="role" id="roleInvestor" value="investor" {% if selected_role == 'investor' %}checked{% endif %} required>
+                    <label class="btn-role" for="roleInvestor">
+                        <span class="role-icon role-icon-investor" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 17L10 11L13 14L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 7H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        Investor
+                    </label>
+
+                    <input class="btn-check" type="radio" name="role" id="roleBusiness" value="business" {% if selected_role == 'business' %}checked{% endif %} required>
+                    <label class="btn-role" for="roleBusiness">
+                        <span class="role-icon role-icon-business" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 21V7L12 3L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 21V12H15V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        Business Owner
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="username" value="{{ submitted_username|default:'' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" value="{{ submitted_email|default:'' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" name="confirm" id="confirm" required>
+            </div>
+            <button type="submit" class="btn btn-custom w-100" id="submitBtn">Register</button>
+        </form>
+
+        <!-- Divider -->
+        <div class="text-center my-3 text-muted">or continue with</div>
+
+        <!-- Social logins -->
+        <div class="d-grid gap-2">
+            <a href="{% provider_login_url 'google' %}"
+                class="btn social-btn d-flex align-items-center justify-content-center">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google">
+                Sign up with Google
+            </a>
+            <a class="btn social-btn d-flex align-items-center justify-content-center">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/apple.svg" alt="Apple">
+                Sign up with Apple
+            </a>
+        </div>
+
+        <div class="mt-4 text-center">
+            <span class="text-muted">Already have an account?</span>
+            <a href="{% url 'login' %}" class="fw-bold text-decoration-none">Login</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const roleInputs = document.querySelectorAll('input[name="role"]');
+        const submitBtn = document.getElementById('submitBtn');
+        const socialButtons = document.querySelectorAll('.social-btn');
+        const registerForm = document.getElementById('registerForm');
+
+        function currentRole() {
+            const checked = document.querySelector('input[name="role"]:checked');
+            return checked ? checked.value : '';
+        }
+
+        function updateControls() {
+            const role = currentRole();
+            const enabled = Boolean(role);
+
+            if (submitBtn) {
+                submitBtn.disabled = !enabled;
+                submitBtn.setAttribute('aria-disabled', String(!enabled));
+            }
+
+            socialButtons.forEach(btn => {
+                btn.classList.toggle('disabled', !enabled);
+                btn.setAttribute('aria-disabled', String(!enabled));
+            });
+        }
+
+        roleInputs.forEach(input => input.addEventListener('change', updateControls));
+        updateControls();
+
+        socialButtons.forEach(btn => {
+            btn.addEventListener('click', function (evt) {
+                const role = currentRole();
+                if (!role) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                    alert('Please choose Investor or Business Owner before continuing.');
+                    return;
+                }
+
+                if (btn.querySelector('img[alt="Apple"]')) {
+                    evt.preventDefault();
+                    alert('Apple sign-up is not configured yet. Please use Google or the email form.');
+                    return;
+                }
+
+                const url = new URL(btn.getAttribute('href'), window.location.origin);
+                url.searchParams.set('role', role);
+                btn.setAttribute('href', url.toString());
+            });
+        });
+
+        if (registerForm) {
+            registerForm.addEventListener('submit', function () {
+                localStorage.setItem('pending_registration_role', currentRole());
+            });
+        }
+    })();
+</script>
 {% endblock %}

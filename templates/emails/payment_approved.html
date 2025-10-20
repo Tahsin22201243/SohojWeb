@@ -1,0 +1,9 @@
+<html>
+  <body>
+    <h2>Investment Approved</h2>
+    <p>Hi {{ investment.investor.username }},</p>
+    <p>Your investment of <strong>{{ investment.amount }}</strong> in campaign <strong>{{ investment.campaign.title }}</strong> has been approved.</p>
+    <p>Transaction ID: {{ payment.transaction_id }}</p>
+    <p>Thanks for investing.</p>
+  </body>
+</html>

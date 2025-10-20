@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+  <div class="card p-4">
+    <h3>Bank Details</h3>
+    {% if profile and profile.bank_account %}
+      <p>Bank account: {{ profile.bank_account }}</p>
+    {% else %}
+      <p>No bank details saved. <a href="{% url 'profile_edit' %}">Add now</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

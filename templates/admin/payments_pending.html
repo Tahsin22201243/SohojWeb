@@ -1,0 +1,24 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+  <h1>Pending Payments</h1>
+  <table class="adminlist">
+    <thead><tr><th>ID</th><th>Investment</th><th>Amount</th><th>Gateway</th><th>Created</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for p in payments %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{% if p.investment %}<a href="/admin/invest/investment/{{ p.investment.id }}/change/">{{ p.investment.id }}</a>{% else %}-{% endif %}</td>
+        <td>{{ p.amount }} {{ p.currency }}</td>
+        <td>{{ p.gateway }}</td>
+        <td>{{ p.created_at }}</td>
+        <td>
+          <a class="button" href="{{ p.id }}/approve/">Approve</a>
+          <a class="button" href="{{ p.id }}/reject/">Reject</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">No pending payments</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

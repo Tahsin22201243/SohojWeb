@@ -16,20 +16,36 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from invest import views as invest_views    
+from django.urls import path, include
+from invest import views as invest_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', invest_views.home, name='home'),
+    path('admin/', admin.site.urls),
     path('about/', invest_views.about, name='about'),
     path('contact/', invest_views.contact, name='contact'),
     path('invest/', invest_views.invest, name='invest'),
     path('portfolio/', invest_views.portfolio, name='portfolio'),
     path('apply/', invest_views.apply, name='apply'),
     path('post/', invest_views.post, name='post'),
-    path('funded/', invest_views.funded, name='funded'),    
-    path('login/', invest_views.login, name='login'),
-    path('dashboard/', invest_views.dashboard, name='dashboard'),
-    path('verify/', invest_views.verify, name='verify'),
+    path('funded/', invest_views.funded, name='funded'),
+    path('business/<int:business_id>/', invest_views.business_detail, name='business_detail'),
+    path('campaign/<int:campaign_id>/', invest_views.campaign_detail, name='campaign_detail'),
+    path('campaign/<int:campaign_id>/invest/', invest_views.invest_in_campaign, name='invest_in_campaign'),
+    path('payments/bkash/start/<int:payment_id>/', invest_views.bkash_start, name='bkash_start'),
+    path('payments/bkash/webhook/', invest_views.bkash_webhook, name='bkash_webhook'),
+    path('payments/bkash/success/<int:payment_id>/', invest_views.bkash_success, name='bkash_success'),
+    path('payments/bkash/cancel/<int:payment_id>/', invest_views.bkash_cancel, name='bkash_cancel'),
+    path('campaign/<int:campaign_id>/update/', invest_views.post_update, name='post_update'),
+    path('login/', invest_views.user_login, name='login'),
+    path('logout/', invest_views.user_logout, name='logout'),
     path('register/', invest_views.register, name='register'),
+    path('accounts/', include('allauth.urls')),  # adds Google/Apple login routes
+    path('admin/', admin.site.urls),
+    path('', include('invest.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Invest in Campaign{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:600px;">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="fw-bold mb-3 text-center">Invest in "{{ campaign.title }}"</h2>
+            <p class="text-muted text-center mb-4">
+                <strong>Business:</strong> {{ campaign.business.name }}<br>
+                <strong>Target Amount:</strong> ৳{{ campaign.target_amount|floatformat:2 }}<br>
+                <strong>Minimum Investment:</strong> ৳{{ campaign.min_investment|floatformat:2 }}<br>
+                <strong>End Date:</strong> {{ campaign.end_date|date:"F j, Y" }}
+            </p>
+            {% if campaign.is_funded or campaign.percent_raised|floatformat:2 >= 100.00 %}
+            <div class="alert alert-warning text-center">This campaign is fully funded and no longer accepts
+                investments.</div>
+            {% elif campaign.end_date and campaign.end_date < today %} <div class="alert alert-danger text-center">This
+                campaign has ended and no longer accepts investments.
+        </div>
+        {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="amount" class="form-label">Investment Amount (৳)</label>
+                <input type="number" name="amount" id="amount" class="form-control" min="{{ campaign.min_investment }}"
+                    value="{{ campaign.min_investment }}" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mt-2">Invest Now</button>
+        </form>
+        {% endif %}
+        <hr>
+        <div class="text-center">
+            <a href="{% url 'campaign_detail' campaign.id %}" class="btn btn-outline-secondary btn-sm">Back to Campaign
+                Details</a>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,11 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Portfolio</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            {% if is_business %}
+                <h2>Your Business Dashboard</h2>
+                <p class="text-muted">Overview of your businesses and campaigns.</p>
+            {% else %}
+                <h2>Your Portfolio</h2>
+                <p class="text-muted">A summary of your investments.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-4 text-end">
+            {% if not is_business %}
+                <a class="btn btn-outline-secondary" href="?export=csv">Export CSV</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if not is_business %}
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h6>Total Invested</h6>
+                <h4>{{ totals.total_invested|default:0 }}</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h6>Approved</h6>
+                <h4>--</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h6>Pending</h6>
+                <h4>--</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h6>Active Campaigns</h6>
+                <h4>{{ page_obj|length }}</h4>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h6>Filters</h6>
+                <form method="get">
+                    <select name="status" class="form-select mb-2">
+                        <option value="">All</option>
+                        <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
+                        <option value="approved" {% if status == 'approved' %}selected{% endif %}>Approved</option>
+                        <option value="rejected" {% if status == 'rejected' %}selected{% endif %}>Rejected</option>
+                        <option value="returned" {% if status == 'returned' %}selected{% endif %}>Returned</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm">Apply</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    {% if is_business %}
+                        <h4>Your Business Dashboard</h4>
+                        {% if businesses_data %}
+                            {% for bdata in businesses_data %}
+                                <div class="mb-4">
+                                    <h5>{{ bdata.business.name }} (Total raised: {{ bdata.total_raised }})</h5>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Campaign</th>
+                                                    <th>Raised</th>
+                                                    <th># Investors</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for c in bdata.campaigns %}
+                                                <tr>
+                                                    <td><a href="{% url 'campaign_detail' c.campaign.id %}">{{ c.campaign.title }}</a></td>
+                                                    <td>{{ c.total }}</td>
+                                                    <td>{{ c.investors_count }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>You have not created any businesses yet. <a href="{% url 'apply' %}">Apply</a> to create a business.</p>
+                        {% endif %}
+                    {% else %}
+                        {% if page_obj and page_obj.object_list %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Campaign</th>
+                                        <th>Business</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Receipt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for inv in page_obj.object_list %}
+                                    <tr>
+                                        <td><a href="{% url 'campaign_detail' inv.campaign.id %}">{{ inv.campaign.title }}</a></td>
+                                        <td><a href="{% url 'business_detail' inv.campaign.business.id %}">{{ inv.campaign.business.name }}</a></td>
+                                        <td>{{ inv.amount }}</td>
+                                        <td>{{ inv.status }}</td>
+                                        <td>{{ inv.invested_at }}</td>
+                                        <td>
+                                            {% if inv.receipt_file %}
+                                                <a href="{% url 'download_receipt' inv.id %}">Download</a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav>
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                {% endif %}
+                                <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                                {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+
+                        {% else %}
+                        <p>No investments yet. <a href="{% url 'invest' %}">Find campaigns to invest</a>.</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
