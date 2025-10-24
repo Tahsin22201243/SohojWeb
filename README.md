@@ -61,7 +61,7 @@ driver.find_element(By.ID, "loginBtn").click()
 ### 🧩 Home & About
 | | |
 |--|--|
-| ![Home](Software/InvestPic/Home.jpeg) | ![About](https://i.imgur.com/efgh456.png) |
+| ![Home](https://raw.githubusercontent.com/Tahsin22201243/UAP-3.2/main/Software/InvestPic/Home.jpeg) | ![About](https://i.imgur.com/efgh456.png) |
 
 ### 🧩 Contact & Register
 | | |
