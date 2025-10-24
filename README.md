@@ -101,17 +101,17 @@ driver.find_element(By.ID, "loginBtn").click()
 ### 🧩 Home & About
 | | |
 |--|--|
-| ![Home]([https://raw.githubusercontent.com/Tahsin22201243/UAP-3.2/main/Software/InvestPic/Home.jpeg](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) | ![About]([https://i.imgur.com/efgh456.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) |
+| ![Home](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B) | ![About](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B) |
 
 ### 🧩 Contact & Register
 | | |
 |--|--|
-| ![Contact]([https://i.imgur.com/ijkl789.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) | ![Register]([https://i.imgur.com/mnop012.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) |
+| ![Contact](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B) | ![Register](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B) |
 
 ### 🧩 Login & Dashboard
 | | |
 |--|--|
-| ![Login]([https://i.imgur.com/qrst345.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) | ![Dashboard]([https://i.imgur.com/uvwx678.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) |
+| ![Login](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B) |
 
 [![Watch  Investment Workflow ]([https://img.youtube.com/vi/YOUR_THUMBNAIL_CODE/0.jpg)](https://drive.google.com/file/d/1AbCdEfGHIJKLmnopQRsTuVWxyz12345/view?usp=sharing](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B))
 
