@@ -40,6 +40,46 @@ It allows entrepreneurs to create funding campaigns while enabling investors to 
 
 ---
 
+---
+
+## ⚙️ Technologies Used
+
+| Category | Tools / Frameworks |
+|-----------|--------------------|
+| **Language** | Python / JavaScript |
+| **Framework** | Django / Flask (if applicable) |
+| **Frontend** | HTML, CSS, JS |
+| **Database** | SQLite / PostgreSQL |
+| **Version Control** | Git + GitHub |
+| **Testing** | Selenium / PyTest |
+| **Deployment** | Localhost / Render / Vercel / Heroku |
+
+---
+
+## 🚀 Getting Started
+
+### 🔧 Prerequisites
+Make sure you have the following installed:
+- Python 3.x
+- Git
+- pip (Python package installer)
+- Virtual environment (optional but recommended)
+
+### ⚙️ Setup Instructions
+
+```bash
+# Clone this repository
+git clone https://github.com/Tahsin22201243/UAP-3.2.git
+
+# Navigate into the folder
+cd UAP-3.2/Software
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application (example)
+python app.py
+
 ## 🧪 Selenium Testing Overview
 
 - Automated testing for all major modules: login, campaign, and investment.
@@ -61,17 +101,19 @@ driver.find_element(By.ID, "loginBtn").click()
 ### 🧩 Home & About
 | | |
 |--|--|
-| ![Home](https://raw.githubusercontent.com/Tahsin22201243/UAP-3.2/main/Software/InvestPic/Home.jpeg) | ![About](https://i.imgur.com/efgh456.png) |
+| ![Home]([https://raw.githubusercontent.com/Tahsin22201243/UAP-3.2/main/Software/InvestPic/Home.jpeg](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) | ![About]([https://i.imgur.com/efgh456.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) |
 
 ### 🧩 Contact & Register
 | | |
 |--|--|
-| ![Contact](https://i.imgur.com/ijkl789.png) | ![Register](https://i.imgur.com/mnop012.png) |
+| ![Contact]([https://i.imgur.com/ijkl789.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) | ![Register]([https://i.imgur.com/mnop012.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) |
 
 ### 🧩 Login & Dashboard
 | | |
 |--|--|
-| ![Login](https://i.imgur.com/qrst345.png) | ![Dashboard](https://i.imgur.com/uvwx678.png) |
+| ![Login]([https://i.imgur.com/qrst345.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) | ![Dashboard]([https://i.imgur.com/uvwx678.png](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B)) |
+
+[![Watch  Investment Workflow ]([https://img.youtube.com/vi/YOUR_THUMBNAIL_CODE/0.jpg)](https://drive.google.com/file/d/1AbCdEfGHIJKLmnopQRsTuVWxyz12345/view?usp=sharing](https://drive.google.com/drive/u/0/folders/1Sa8eomEN0FlsmqAIXfsCeJ0IU0l3Q25B))
 
 ---
 
